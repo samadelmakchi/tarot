@@ -1,0 +1,11 @@
+{
+  "name": "faalbin",
+  "version": "1.0.0",
+  "description": "فال‌بین — جامع‌ترین فال‌های آنلاین (PWA بدون نیاز به بیلد)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "icons": "node scripts/gen-icons.mjs"
+  }
+}
