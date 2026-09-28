@@ -3,7 +3,7 @@
    ============================================================ */
 import { el, delay, faNum } from "./util.js";
 import { tarotZone, cardSlot, resultWrap, showResult, readingItem, readingSection, copyBtn } from "./ui.js";
-import { majorDeck, fullDeck } from "../data/tarot-deck.js";
+import { majorDeck, minorDeck, fullDeck } from "../data/tarot-deck.js";
 
 /**
  * اجرای یک چیدمان تاروت
@@ -11,7 +11,7 @@ import { majorDeck, fullDeck } from "../data/tarot-deck.js";
  * @param {object} cfg { deck:'major'|'full', positions:[{label,sub,hint}], focusLabel, allowQuestion }
  */
 export function runSpread(box, cfg) {
-  const deck = cfg.deck === "major" ? majorDeck() : fullDeck();
+  const deck = cfg.deck === "major" ? majorDeck() : cfg.deck === "minor" ? minorDeck() : fullDeck();
   box.innerHTML = "";
 
   const lead = el("p", { class: "lead-note muted", text: cfg.focusLabel || "" });

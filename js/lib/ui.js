@@ -50,10 +50,8 @@ export function showResult(wrap, html) {
 /** صورت یک کارت تاروت (سمت رویی) */
 export function tarotFace(card) {
   return el("div", { class: "card-face card-front" },
-    el("div", { class: "cno", text: card.no } ),
-    el("div", { class: "csym", text: card.sym }),
+    el("img", { class: "card-image", src: card.image, alt: card.name, width: "398", height: "623" }),
     el("div", { class: "cname", text: card.name }),
-    card.short ? el("div", { class: "crev", text: card.short.slice(0, 42) }) : null,
   );
 }
 

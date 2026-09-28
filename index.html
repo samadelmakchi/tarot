@@ -3,45 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#140b2e" />
-  <meta name="description" content="فال‌بین؛ جامع‌ترین فال‌های آنلاین — تاروت، حافظ، فال روزانه و ده‌ها فال دیگر، بدون نیاز به اینترنت." />
+  <meta name="theme-color" content="#faf9f7" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+  <meta name="description" content="فال‌بین؛ فال‌های تاروت — تک‌کارتی، سه‌کارتی، صلیب، بله/خیر و چیدمان‌های کامل، بدون نیاز به اینترنت." />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="icon" type="image/png" href="00/android-chrome-192x192.png" />
-  <link rel="apple-touch-icon" href="00/android-chrome-192x192.png" />
+  <link rel="icon" href="./favicon.ico" />
+  <link rel="apple-touch-icon" href="./logo.png" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>فال‌بین | جامع‌ترین فال‌های آنلاین</title>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>فال‌بین | فال‌های تاروت آنلاین</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">پرش به محتوا</a>
-  <header class="topbar" id="topbar">
+  <header class="topbar">
     <button class="home-btn" id="homeBtn" aria-label="بازگشت به خانه" title="خانه">
-      <span class="logo-star">✦</span>
+      <img src="./logo.png" alt="فال‌بین" width="70" height="26" />
     </button>
-    <div class="brand" id="brand">
-      <strong>فال‌بین</strong>
-      <small>جامع‌ترین فال‌های آنلاین</small>
-    </div>
-    <nav class="topnav" id="topnav">
-      <a href="#/" data-nav="home">خانه</a>
-      <a href="#/category/tarot" data-nav="cat-tarot">تاروت</a>
-      <a href="#/category/hafez">حافظ</a>
-      <a href="#/category/daily">روزانه</a>
-    </nav>
-    <button class="search-toggle" id="searchToggle" aria-label="جستجو">⌕</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم روشن/تاریک" title="تغییر تم">
+      <span class="theme-ico" aria-hidden="true"></span>
+    </button>
   </header>
 
-  <div class="searchbar" id="searchbar" hidden>
-    <input type="search" id="searchInput" placeholder="جستجوی فال… مثلاً: تاروت، حافظ، قهوه، عشق" autocomplete="off" />
-  </div>
-
   <main id="main" class="main" tabindex="-1"></main>
-
-  <footer class="site-footer">
-    <p>فال‌بین — سرگرمی و الهام، نه پیش‌گویی قطعی. انتخاب با خود شماست. ✦</p>
-    <p class="install-hint" id="installHint">برای استفادهٔ آفلاین، گزینهٔ «نصب برنامه» را در منوی مرورگر انتخاب کنید.</p>
-  </footer>
 
   <button class="fab" id="installBtn" hidden>⬇ نصب برنامه</button>
 

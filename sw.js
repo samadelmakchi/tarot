@@ -1,5 +1,5 @@
 /* فال‌بین — سرویس‌ورکر برای کارکرد آفلاین و نصب PWA */
-const CACHE = "faalbin-v1";
+const CACHE = "faalbin-v6";
 const CORE = [
   "./",
   "./index.html",
@@ -10,10 +10,25 @@ const CORE = [
   "./js/lib/util.js",
   "./js/lib/ui.js",
   "./js/lib/tarot.js",
+  "./js/lib/reading-page.js",
   "./js/data/tarot-deck.js",
-  "./00/android-chrome-192x192.png",
-  "./assets/icons/icon-192.png",
-  "./assets/icons/icon-512.png",
+  "./favicon.ico",
+  "./logo.png",
+];
+
+const majorImages = [
+  "00-the-fool", "01-the-magician", "02-the-high-priestess", "03-the-empress",
+  "04-the-emperor", "05-the-hierophant", "06-the-lovers", "07-the-chariot",
+  "08-strength", "09-the-hermit", "10-wheel-of-fortune", "11-justice",
+  "12-the-hanged-man", "13-death", "14-temperance", "15-the-devil",
+  "16-the-tower", "17the-star", "18-the-moon", "19-the-sun",
+  "20-judgement", "21-the-world",
+];
+const ranks = ["ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "page", "knight", "queen", "king"];
+const suits = ["wands", "cups", "swords", "pentacles"];
+const cardImages = [
+  ...majorImages.map((name) => `./img/${name}.jpg`),
+  ...suits.flatMap((suit) => ranks.map((rank) => `./img/${rank}-of-${suit}.jpg`)),
 ];
 
 /* همهٔ فایل‌های js/faals و js/* به‌صورت خودکار پیش‌کش می‌شوند */
@@ -25,17 +40,15 @@ self.addEventListener("install", (event) => {
       // پیش‌کش ماژول‌های فال تا آفلاین کامل باشد
       const moduleUrls = [];
       const faals = [
-        "hafez.js", "daily.js", "tarot-one-card.js", "tarot-three-card.js", "tarot-four-card.js",
+        "tarot-one-card.js", "tarot-three-card.js", "tarot-four-card.js",
         "tarot-six-card.js", "tarot-nine-card.js", "tarot-ten-card.js", "tarot-major-yesno.js",
-        "playing-cards.js", "oracle.js", "runes.js", "numerology.js", "abjad.js",
-        "dice.js", "coin.js", "chickpea.js", "oracle-yesno.js", "book.js", "knuckle.js",
-        "coffee.js", "tea.js", "candle.js", "eggwhite.js", "water.js", "flame.js", "aeromancy.js",
-        "palmistry.js", "face.js", "phrenology.js", "iridology.js", "stones.js", "totem.js",
-        "zodiac.js", "chinese.js", "vedic.js", "cosmogram.js", "heliobiology.js",
-        "geomancy.js", "iching.js", "birds.js",
+        "tarot-major-arcana.js", "tarot-minor-arcana.js", "tarot-full-deck.js",
+        "tarot-seven-card.js", "tarot-love.js", "tarot-work.js", "tarot-money.js",
+        "tarot-health.js", "tarot-spiritual.js",
       ];
       faals.forEach((f) => moduleUrls.push(`./js/faals/${f}`));
       await cache.addAll(moduleUrls);
+      await cache.addAll(cardImages);
       self.skipWaiting();
     })(),
   );

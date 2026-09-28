@@ -169,6 +169,15 @@ const SUITS = {
 };
 
 const RANK_NUM = ["آس", "دو", "سه", "چهار", "پنج", "شش", "هفت", "هشت", "نه", "ده"];
+const RANK_FILE = ["ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+const MAJOR_FILE = [
+  "00-the-fool", "01-the-magician", "02-the-high-priestess", "03-the-empress",
+  "04-the-emperor", "05-the-hierophant", "06-the-lovers", "07-the-chariot",
+  "08-strength", "09-the-hermit", "10-wheel-of-fortune", "11-justice",
+  "12-the-hanged-man", "13-death", "14-temperance", "15-the-devil",
+  "16-the-tower", "17the-star", "18-the-moon", "19-the-sun",
+  "20-judgement", "21-the-world",
+];
 const COURT = [
   { name: "ملازم", role: "پیام، یادگیری و آغاز حرکت", kind: "page" },
   { name: "شوالیه", role: "پیشروی، شور و اقدام قاطع", kind: "knight" },
@@ -180,10 +189,12 @@ function buildMinor() {
   const cards = [];
   let counter = 22;
   for (const [sKey, suit] of Object.entries(SUITS)) {
+    const imageSuit = sKey === "coins" ? "pentacles" : sKey;
     for (let n = 0; n < 10; n++) {
       const num = n + 1;
       cards.push({
         id: `minor-${sKey}-${num}`,
+        image: `img/${RANK_FILE[n]}-of-${imageSuit}.jpg`,
         no: fa(counter),
         name: `${suit.name} ${RANK_NUM[n]}`,
         sym: suit.sym,
@@ -200,6 +211,7 @@ function buildMinor() {
     for (const c of COURT) {
       cards.push({
         id: `minor-${sKey}-${c.kind}`,
+        image: `img/${c.kind}-of-${imageSuit}.jpg`,
         no: fa(counter),
         name: `${c.name}ٔ ${suit.name}`,
         sym: suit.sym,
@@ -221,7 +233,7 @@ function fa(n) {
 }
 
 function buildMajor() {
-  return MAJOR.map((m, idx) => ({ ...m, id: `major-${idx}`, kind: "major", _rank: idx }));
+  return MAJOR.map((m, idx) => ({ ...m, id: `major-${idx}`, image: `img/${MAJOR_FILE[idx]}.jpg`, kind: "major", _rank: idx }));
 }
 
 /** ساخت کامل ۷۸ کارت */
@@ -232,6 +244,11 @@ export function fullDeck() {
 /** فقط ۲۲ کارت کبیر */
 export function majorDeck() {
   return buildMajor();
+}
+
+/** فقط ۵۶ کارت صغیر */
+export function minorDeck() {
+  return buildMinor();
 }
 
 /** با مختلط‌کردن، دسته‌ای برمی‌گرداند */
