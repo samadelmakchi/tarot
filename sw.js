@@ -1,5 +1,5 @@
 /* فال‌بین — سرویس‌ورکر برای کارکرد آفلاین و نصب PWA */
-const CACHE = "faalbin-v6";
+const CACHE = "faalbin-v8";
 const CORE = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const CORE = [
   "./js/app.js",
   "./js/registry.js",
   "./js/lib/util.js",
+  "./js/lib/fal-content.js",
   "./js/lib/ui.js",
   "./js/lib/tarot.js",
   "./js/lib/reading-page.js",

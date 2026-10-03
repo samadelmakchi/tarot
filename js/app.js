@@ -2,7 +2,8 @@
    فال‌بین — مسیریاب و صفحهٔ اصلی
    ============================================================ */
 import { el, faToday } from "./lib/util.js";
-import { CATEGORIES, categorySection, findFal } from "./registry.js";
+import { CATEGORIES, categorySection, coverImage, findFal } from "./registry.js";
+import { categoryDescription } from "./lib/fal-content.js";
 
 const main = document.getElementById("main");
 const homeBtn = document.getElementById("homeBtn");
@@ -31,16 +32,32 @@ document.getElementById("themeToggle").addEventListener("click", () => {
 /* ---------- صفحهٔ اصلی ---------- */
 function renderHome() {
   const m = el("div", { class: "home" });
-  const hero = el("div", { class: "hero" },
-    el("h1", { text: "فال تاروت" }),
-    el("p", { text: "۱۵ روش فال تاروت بر پایهٔ دستهٔ کارت، تعداد کارت و موضوع، به‌همراه فال ویژهٔ بله/خیر؛ رایگان و بدون نیاز به اینترنت." }),
-    el("p", { class: "dim", text: `امروز: ${faToday()}` }),
+  const featured = findFal("tarot-one-card");
+  const hero = el("section", { class: "hero" },
+    el("div", { class: "hero-copy" },
+      el("span", { class: "eyebrow", text: `راهنمای امروز · ${faToday()}` }),
+      el("h1", { text: "یک لحظه برای خودت" }),
+      el("p", { text: "کارت‌ها را بکش، نشانه‌ها را ببین و با ذهنی آرام به مسیرت فکر کن." }),
+      el("button", { class: "btn hero-cta", onclick: () => { location.hash = "#/fal/tarot-one-card"; }, text: "کارت امروز من ✦" }),
+    ),
+    el("div", { class: "hero-deck", "aria-hidden": "true" },
+      el("img", { class: "hero-card hero-card-back", src: "./img/17the-star.jpg", alt: "" }),
+      el("img", { class: "hero-card hero-card-main", src: coverImage(featured), alt: "" }),
+      el("span", { class: "hero-glow" }),
+    ),
   );
   m.append(hero);
 
-  CATEGORIES.forEach((c) => {
-    m.append(categorySection(c));
-  });
+  const shortcuts = el("nav", { class: "category-shortcuts", "aria-label": "دسته‌بندی فال‌ها" });
+  CATEGORIES.forEach((category) => shortcuts.append(el("a", {
+    href: `#/category/${category.slug}`,
+    text: category.title.replace("بر اساس ", ""),
+  })));
+  m.append(shortcuts);
+
+  CATEGORIES.forEach((c) => m.append(categorySection(c)));
+
+  m.append(el("p", { class: "home-note", text: "فال‌ها برای سرگرمی، الهام و تأمل شخصی طراحی شده‌اند." }));
 
   main.replaceChildren(m);
 }
@@ -66,8 +83,17 @@ function renderCategory(slug) {
   const m = el("div", {});
   m.append(
     el("div", { class: "crumb" }, el("a", { href: "#/", text: "خانه" }), " / ", cat.title),
-    el("div", { class: "page-head" },
-      el("div", {}, el("h1", { text: cat.title }), el("p", { class: "tagline", text: `${cat.items.length} روش فال` })),
+    el("section", { class: "category-showcase" },
+      el("div", { class: "category-showcase-copy" },
+        el("span", { class: "intro-chip", text: `${cat.items[0].emoji}  مجموعهٔ فال‌ها` }),
+        el("h1", { text: cat.title }),
+        el("p", { class: "tagline", text: `${cat.items.length} روش برای یک تجربهٔ تصویری و آرام` }),
+        el("p", { class: "category-description", text: categoryDescription(cat.slug) }),
+      ),
+      el("div", { class: "category-showcase-art", "aria-hidden": "true" },
+        el("img", { class: "category-art-back", src: coverImage(cat.items.at(-1)), alt: "" }),
+        el("img", { class: "category-art-main", src: coverImage(cat.items[0]), alt: "" }),
+      ),
     ),
   );
   m.append(categorySection(cat, false));

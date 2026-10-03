@@ -3,6 +3,7 @@
    برای افزودن فال جدید: یک فایل در js/faals بسازید و اینجا import کنید.
    ============================================================ */
 import { el } from "./lib/util.js";
+import { coverImage } from "./lib/fal-content.js";
 import tarotOne from "./faals/tarot-one-card.js";
 import tarotThree from "./faals/tarot-three-card.js";
 import tarotFour from "./faals/tarot-four-card.js";
@@ -28,6 +29,8 @@ const MODULES = [
 
 export const FALS = MODULES.map((m) => m.meta);
 
+export { coverImage } from "./lib/fal-content.js";
+
 /** گروه‌بندی فال‌ها در خانه و صفحهٔ دسته‌ها */
 export const CATEGORIES = [
   { slug: "deck-types", title: "بر اساس دستهٔ کارت", items: [tarotMajorArcana, tarotMinorArcana, tarotFullDeck].map((m) => m.meta) },
@@ -47,9 +50,15 @@ export function falCard(f) {
     "data-id": f.id,
     onclick: () => { location.hash = `#/fal/${f.id}`; window.scrollTo({ top: 0 }); },
   },
-    el("span", { class: "ttl", text: f.title }),
-    el("span", { class: "dsc", text: f.blurb }),
-    el("span", { class: "go", text: "شروع فال ←" }),
+    el("span", { class: "faal-cover" },
+      el("img", { src: coverImage(f), alt: "", loading: "lazy", width: "180", height: "236" }),
+      el("span", { class: "faal-emoji", text: f.emoji }),
+    ),
+    el("span", { class: "faal-copy" },
+      el("span", { class: "ttl", text: f.title }),
+      el("span", { class: "dsc", text: f.blurb }),
+      el("span", { class: "go", text: "شروع فال ←" }),
+    ),
   );
 }
 

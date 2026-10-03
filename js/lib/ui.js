@@ -2,6 +2,7 @@
    ui — اجزای مشترک رابط کاربری برای همهٔ فال‌ها
    ============================================================ */
 import { el, delay } from "./util.js";
+import { coverImage, falDescription } from "./fal-content.js";
 
 /**
  * قالب استاندارد صفحهٔ یک فال
@@ -16,14 +17,24 @@ export function falPage(mount, meta, build) {
     el("a", { href: `#/category/${meta.categorySlug || "all"}`, text: meta.category }), " / ",
     meta.title,
   );
-  const head = el("div", { class: "page-head" },
-    el("span", { class: "big-em", text: meta.emoji }),
-    el("div", {},
+  const head = el("section", { class: "fal-intro" },
+    el("div", { class: "fal-intro-copy" },
+      el("span", { class: "intro-chip", text: `${meta.emoji}  فال تاروت` }),
       el("h1", { text: meta.title }),
       meta.tagline ? el("p", { class: "tagline", text: meta.tagline }) : null,
+      el("p", { class: "fal-description", text: falDescription(meta) }),
+      el("div", { class: "intro-steps" },
+        el("span", { text: "۱. نیت کن" }),
+        el("span", { text: "۲. کارت بکش" }),
+        el("span", { text: "۳. تأمل کن" }),
+      ),
+    ),
+    el("div", { class: "fal-intro-art", "aria-hidden": "true" },
+      el("img", { class: "fal-art-shadow", src: "./img/17the-star.jpg", alt: "" }),
+      el("img", { class: "fal-art-main", src: coverImage(meta), alt: "" }),
     ),
   );
-  const box = el("div", { class: "box-inner" });
+  const box = el("div", { class: "box-inner ritual-box" });
   mount.append(crumbs, head, box);
   build(box, (html) => { box.innerHTML = html; });
   return box;
