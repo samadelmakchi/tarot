@@ -86,7 +86,7 @@ export default { meta, page };
 
 در تنظیمات مخزن، بخش **Settings → Pages → Build and deployment**، گزینهٔ **Source** را روی **GitHub Actions** قرار دهید. آدرس سایت این مخزن پس از انتشار موفق:
 
-https://samadelmakchi.github.io/seemorgh-fal/
+https://samadelmakchi.github.io/tarot/
 
 مسیرهای فایل‌ها، مانیفست و سرویس‌ورکر نسبی هستند و با زیرمسیر مخزن سازگارند؛ نیازی به دامنهٔ اختصاصی یا مرحلهٔ بیلد نیست.
 
