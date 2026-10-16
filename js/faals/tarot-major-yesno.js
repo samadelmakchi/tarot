@@ -2,9 +2,9 @@
    فال تاروت کبیر بله/خیر — پاسخ مستقیم از ۲۲ کارت بزرگ اسرار
    ============================================================ */
 import { falPage } from "../lib/ui.js";
-import { el, delay } from "../lib/util.js";
-import { tarotZone, cardSlot, readingItem, copyBtn } from "../lib/ui.js";
-import { majorDeck } from "../data/tarot-deck.js";
+import { el } from "../lib/util.js";
+import { readingItem, copyBtn } from "../lib/ui.js";
+import { cardPicker } from "../lib/tarot.js";
 
 const meta = {
   id: "tarot-major-yesno",
@@ -42,25 +42,12 @@ function verdict(card, reversed) {
 
 function page(mount) {
   const box = falPage(mount, meta, () => {});
-  const lead = el("p", { class: "lead-note muted", text: "پرسشت را در ذهن به‌صورت بله/خیر روشن کن (مثلاً «آیا این کار برای من درست است؟») و یک کارت بکش." });
-  const btn = el("button", { class: "btn big breathe", text: "🃏 کشیدن کارت کبیر" });
-  const zone = tarotZone();
-  const result = el("div", { class: "result-box reveal", hidden: true });
-  box.append(lead, el("div", { class: "center" }, btn), zone, result);
-
-  btn.addEventListener("click", async () => {
-    btn.disabled = true;
-    btn.textContent = "در حال برهم‌زدن…";
-    result.hidden = true;
-    await delay(1100);
-    zone.innerHTML = "";
-    const deck = majorDeck();
-    const card = deck[Math.floor(Math.random() * deck.length)];
-    const reversed = Math.random() < 0.3;
-    const slot = cardSlot({ label: "کارت کبیر تو", sub: "بزرگ اسرار" }, { card, reversed }, 500);
-    zone.append(slot);
-    await delay(1300);
-
+  cardPicker(box, {
+    deck: "major",
+    positions: [{ label: "کارت کبیر تو", sub: "بزرگ اسرار" }],
+    focusLabel: "پرسشت را در ذهن به‌صورت بله/خیر روشن کن (مثلاً «آیا این کار برای من درست است؟») و یک کارت از پشت انتخاب کن.",
+    reversedChance: 0.3,
+  }, (result, [{ card, reversed }]) => {
     const v = verdict(card, reversed);
     const head = el("div", { class: "center" },
       el("div", { class: "big-answer " + v.cls, text: v.v }),
@@ -74,9 +61,6 @@ function page(mount) {
     result.innerHTML = "";
     result.append(head, el("hr", { class: "divider" }), item,
       el("div", { class: "center", style: "margin-top:8px" }, copyBtn(`فال تاروت کبیر بله/خیر — پاسخ: ${v.v}\n${v.note}\nکارت: ${card.name}${reversed ? " (معکوس)" : ""}\n${reversed ? card.reversed : card.upright}`)));
-    btn.disabled = false;
-    btn.textContent = "کشیدن دوباره";
-    result.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
 }
 

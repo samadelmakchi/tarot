@@ -598,6 +598,54 @@ a {
 .result-box {
 	margin-top: 22px
 }
+.selection-status {
+	color: var(--accent);
+	font-size: 14px;
+	text-align: center
+}
+.card-choices {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+	gap: 10px;
+	margin: 18px 0 24px
+}
+.card-choices[hidden] {
+	display: none
+}
+.card-choice {
+	appearance: none;
+	aspect-ratio: 2 / 3;
+	background: none;
+	border: 0;
+	border-radius: 10px;
+	cursor: pointer;
+	padding: 0;
+	position: relative;
+	transition: transform .2s, opacity .2s
+}
+.card-choice .card-back {
+	background: repeating-linear-gradient(45deg, transparent 0 8px, var(--accent-soft) 8px 9px), var(--surface-2);
+	border: 1px solid var(--accent)
+}
+.card-choice:hover:not(:disabled) {
+	transform: translateY(-5px)
+}
+.card-choice:focus-visible {
+	outline: 3px solid var(--accent);
+	outline-offset: 3px
+}
+.card-choice.is-picked {
+	opacity: .2;
+	transform: scale(.9)
+}
+.card-choice:disabled {
+	cursor: default
+}
+@media (prefers-reduced-motion: reduce) {
+	.card-choice, .card-inner {
+		transition: none
+	}
+}
 .tarot-zone {
 	display: flex;
 	flex-wrap: wrap;
